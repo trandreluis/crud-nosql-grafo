@@ -24,11 +24,11 @@ public class PessoaDao {
 	}
 
 	public void salvar(Pessoa dado) {
-		this.session.run("CREATE (a:User {name:'" + dado.getNome() + "', id:'" + dado.getId() + "'})");
+		this.session.run("CREATE (a:User {name:'" + dado.getNome() + "', id:'" + dado.getIdPessoa() + "'})");
 	}
 
 	public void salvarPessoa(Pessoa dado) {
-		this.session.run("CREATE (a:Pessoa {nome:'" + dado.getNome() + "', id:'" + dado.getId() + "'})");
+		this.session.run("CREATE (a:Pessoa {nome:'" + dado.getNome() + "', id:'" + dado.getIdPessoa() + "'})");
 	}
 
 	public void atualizar(long id, Pessoa pessoa) {
@@ -75,7 +75,7 @@ public class PessoaDao {
 
 		Pessoa p = new Pessoa();
 
-		p.setId(100);
+		p.setIdPessoa(100);
 
 		p.setNome("Antônio");
 

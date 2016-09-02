@@ -11,7 +11,25 @@ public class Pessoa {
 	private long idPessoa;
 	private String nome;
 	private String sobrenome;
+	private String profissao;
 	private int idade;
+	
+	public void setIdPessoa(long idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
+	public long getIdPessoa() {
+		return idPessoa;
+	}
+
+	public String getProfissao() {
+		return profissao;
+	}
+
+	public void setProfissao(String profissao) {
+		this.profissao = profissao;
+	}
+
 	
 	public String getSobrenome() {
 		return sobrenome;
@@ -19,15 +37,6 @@ public class Pessoa {
 
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
-	}
-
-
-	public long getId() {
-		return idPessoa;
-	}
-
-	public void setId(long idPessoa) {
-		this.idPessoa = idPessoa;
 	}
 
 	public String getNome() {
