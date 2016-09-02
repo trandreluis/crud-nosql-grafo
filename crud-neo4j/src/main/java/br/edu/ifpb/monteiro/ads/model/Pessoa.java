@@ -8,16 +8,26 @@ package br.edu.ifpb.monteiro.ads.model;
 
 public class Pessoa {
 
-	private long id;
+	private long idPessoa;
 	private String nome;
-	private String profissao;
-
-	public long getId() {
-		return id;
+	private String sobrenome;
+	private int idade;
+	
+	public String getSobrenome() {
+		return sobrenome;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
+	}
+
+
+	public long getId() {
+		return idPessoa;
+	}
+
+	public void setId(long idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getNome() {
@@ -28,16 +38,16 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public String getProfissao() {
-		return profissao;
+	public int getIdade() {
+		return idade;
 	}
 
-	public void setProfissao(String profissao) {
-		this.profissao = profissao;
+	public void setIdade(int idade) {
+		this.idade = idade;
 	}
 
 	public String toString() {
-		return "ID: "+this.id+ ", NOME: "+this.nome;
+		return "ID: "+this.idPessoa+ ", NOME: "+this.nome+", SOBRENOME: "+this.sobrenome+", IDADE: "+this.idade;
 	}
 	
 }
