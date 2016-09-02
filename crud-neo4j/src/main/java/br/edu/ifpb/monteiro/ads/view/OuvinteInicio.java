@@ -13,7 +13,6 @@ public class OuvinteInicio implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getSource() ==)
 		
 	}
 
