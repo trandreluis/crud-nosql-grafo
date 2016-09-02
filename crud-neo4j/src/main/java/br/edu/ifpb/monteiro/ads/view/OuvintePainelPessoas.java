@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-public class OuvinteInicio implements ActionListener {
+public class OuvintePainelPessoas implements ActionListener {
 
 	private PainelPessoas painel;
 	
-	public OuvinteInicio(PainelPessoas painel) {
+	public OuvintePainelPessoas(PainelPessoas painel) {
 		this.painel = painel;
 	}
 	
@@ -17,6 +17,9 @@ public class OuvinteInicio implements ActionListener {
 		
 		if(e.getSource() == painel.getBotaovisualizarFamilia()) {
 			botaoVisualizarFamilia();
+		}
+		else if(e.getSource() == painel.getBotaoRelacionar()) {
+			botaoRelacionar();
 		}
 		else if(e.getSource() == painel.getBotaoCadastro()) {
 			botaoCadastrar();
@@ -34,6 +37,8 @@ public class OuvinteInicio implements ActionListener {
 
 	public void botaoCadastrar() {
 		JOptionPane.showMessageDialog(null, "Cadastrar!");
+		PainelCadastro painelCadastro = new PainelCadastro(painel.getFramePai());
+		painel.getFramePai().trocarPainel(painelCadastro);
 	}
 	
 	public void botaoEditar() {
@@ -46,6 +51,14 @@ public class OuvinteInicio implements ActionListener {
 	
 	public void botaoVisualizarFamilia() {
 		JOptionPane.showMessageDialog(null, "Visualizar Família!");
+	}
+	
+	public void botaoRelacionar() {
+		JOptionPane.showMessageDialog(null, "Relacionar!");
+	}
+	
+	public PainelPessoas getPainel() {
+		return this.painel;
 	}
 	
 }

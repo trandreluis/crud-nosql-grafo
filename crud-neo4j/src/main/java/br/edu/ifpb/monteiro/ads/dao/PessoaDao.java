@@ -24,11 +24,8 @@ public class PessoaDao {
 	}
 
 	public void salvar(Pessoa dado) {
-		this.session.run("CREATE (a:User {name:'" + dado.getNome() + "', id:'" + dado.getIdPessoa() + "'})");
-	}
-
-	public void salvarPessoa(Pessoa dado) {
-		this.session.run("CREATE (a:Pessoa {nome:'" + dado.getNome() + "', id:'" + dado.getIdPessoa() + "'})");
+		this.session.run("CREATE (a:Pessoa {name: '" + dado.getNome() + "', nome:'" + dado.getNome() + "', sobrenome:'"
+				+ dado.getSobrenome() + "', cpf:'" + dado.getCpf() + "', idade:'" + dado.getIdade() +"'})");
 	}
 
 	public void atualizar(long id, Pessoa pessoa) {
@@ -64,28 +61,23 @@ public class PessoaDao {
 	}
 
 	public void apagarRelacionamento() {
-		this.session.run(
-				"MATCH (nicholas)-[rel:Filho]->(carlos) WHERE nicholas.nome = 'Andre Luis'"
+		this.session.run("MATCH (nicholas)-[rel:Filho]->(carlos) WHERE nicholas.nome = 'Andre Luis'"
 				+ " AND carlos.nome = 'Antônio' DELETE rel");
 	}
 
 	public static void main(String[] args) {
 
-		PessoaDao c = new PessoaDao();
-
 		Pessoa p = new Pessoa();
-
-		p.setIdPessoa(100);
 
 		p.setNome("Antônio");
 
 		p.setSobrenome("Gomes");
-		
+
 		p.setIdade(38);
 
-//		c.apagarRelacionamento();
-		
-//		c.apagar();
+		// c.apagarRelacionamento();
+
+		// c.apagar();
 
 		// c.relacionamentoPessoaPorID(1, 1);
 

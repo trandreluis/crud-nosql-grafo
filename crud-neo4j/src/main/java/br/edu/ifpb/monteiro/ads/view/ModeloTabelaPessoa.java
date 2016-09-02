@@ -10,8 +10,8 @@ import br.edu.ifpb.monteiro.ads.model.Pessoa;
 public class ModeloTabelaPessoa extends AbstractTableModel {
 
 	private ArrayList<Pessoa> linhas;
-	private String[] colunas = new String[] { "Nome", "Sobrenome", "Profissão", "Idade" };
-	private final int nome = 0, sobrenome = 1, profissao = 2, idade = 3;
+	private String[] colunas = new String[] { "Nome", "Sobrenome", "CPF", "Idade" };
+	private final int nome = 0, sobrenome = 1, cpf = 2, idade = 3;
 
 	public ModeloTabelaPessoa(ArrayList<Pessoa> pessoas) {
 		this.linhas = pessoas;
@@ -40,7 +40,7 @@ public class ModeloTabelaPessoa extends AbstractTableModel {
 		case sobrenome:
 			return String.class;
 			
-		case profissao:
+		case cpf:
 			return String.class;
 
 		case idade:
@@ -62,8 +62,8 @@ public class ModeloTabelaPessoa extends AbstractTableModel {
 			return pessoa.getNome();
 		case sobrenome:
 			return pessoa.getSobrenome();
-		case profissao:
-			return pessoa.getProfissao();
+		case cpf:
+			return pessoa.getCpf();
 		case idade:
 			return pessoa.getIdade();
 		default:

@@ -16,15 +16,19 @@ public class PainelPessoas extends JPanel {
 	private JButton botaoEditar;
 	private JButton botaoRemover;
 	private JButton botaoVisualizarFamilia;
-	
+	private JButton botaoRelacionar;
+	private Inicio framePai;
+
 	private JTable tabelaPessoas;
-	
-	public PainelPessoas() {
-		
+
+	public PainelPessoas(Inicio framePai) {
+
+		this.framePai = framePai;
+
 		setBounds(0, 0, 664, 421);
 		setLayout(null);
 
-		OuvinteInicio ouvinte = new OuvinteInicio(this);
+		OuvintePainelPessoas ouvinte = new OuvintePainelPessoas(this);
 
 		botaoVisualizarFamilia = new JButton("Visualizar Família");
 		botaoVisualizarFamilia.setBounds(10, 376, 138, 34);
@@ -45,41 +49,43 @@ public class PainelPessoas extends JPanel {
 		botaoRemover.setBounds(565, 376, 89, 34);
 		botaoRemover.addActionListener(ouvinte);
 		add(botaoRemover);
-	
-		
+
 		/**
 		 * incio do teste
 		 */
 		montarPreencherTabela();
-	
+
 		JScrollPane st = new JScrollPane(tabelaPessoas);
 		st.setBounds(3, 3, 658, 360);
-		
+
 		add(st);
+
+		botaoRelacionar = new JButton("Relacionar");
+		botaoRelacionar.setBounds(158, 376, 106, 34);
+		botaoRelacionar.addActionListener(ouvinte);
+		add(botaoRelacionar);
 		/**
 		 * fim do teste
 		 */
-		
+
 	}
-	
+
 	/**
 	 * inicio do teste
 	 */
 	public void montarPreencherTabela() {
-		
+
 		ArrayList<Pessoa> p = new ArrayList<Pessoa>();
-		
+
 		Pessoa pessoa = new Pessoa();
-		pessoa.setIdPessoa(1);
 		pessoa.setIdade(19);
 		pessoa.setNome("Carlos");
 		pessoa.setSobrenome("Prestes");
 		Pessoa pessoa9 = new Pessoa();
-		pessoa9.setIdPessoa(1);
 		pessoa9.setIdade(19);
 		pessoa9.setNome("Carlos");
 		pessoa9.setSobrenome("Prestes");
-		pessoa9.setProfissao("Carpinteiro");
+		pessoa9.setCpf("108.678.779-44");
 		p.add(pessoa9);
 		p.add(pessoa9);
 		p.add(pessoa9);
@@ -109,25 +115,23 @@ public class PainelPessoas extends JPanel {
 		p.add(pessoa9);
 		p.add(pessoa9);
 		p.add(pessoa9);
-		
-		
+
 		Pessoa pessoa10 = new Pessoa();
-		pessoa10.setIdPessoa(1);
 		pessoa10.setIdade(19);
 		pessoa10.setNome("Carlos");
 		pessoa10.setSobrenome("Prestes");
-		pessoa10.setProfissao("Pedreiro");
+		pessoa10.setCpf("234.786.99-56");
 		p.add(pessoa10);
-		
-		
+
 		ModeloTabelaPessoa model = new ModeloTabelaPessoa(p);
 		this.tabelaPessoas = new JTable(model);
-		
+
 	}
+
 	/**
 	 * fim do teste
 	 */
-	
+
 	public JButton getBotaoCadastro() {
 		return this.botaoCadastrar;
 	}
@@ -143,5 +147,13 @@ public class PainelPessoas extends JPanel {
 	public JButton getBotaovisualizarFamilia() {
 		return this.botaoVisualizarFamilia;
 	}
-	
+
+	public JButton getBotaoRelacionar() {
+		return this.botaoRelacionar;
+	}
+
+	public Inicio getFramePai() {
+		return this.framePai;
+	}
+
 }
