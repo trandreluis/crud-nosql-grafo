@@ -3,7 +3,6 @@ package br.edu.ifpb.monteiro.ads.dao;
 import java.util.ArrayList;
 
 import org.neo4j.driver.v1.Session;
-import org.neo4j.driver.v1.StatementResult;
 
 import br.edu.ifpb.monteiro.ads.model.Pessoa;
 
@@ -31,7 +30,7 @@ public class PessoaDao {
 	public void salvarPessoa(Pessoa dado) {
 		this.session.run("CREATE (a:Pessoa {nome:'" + dado.getNome() + "', id:'" + dado.getId() + "'})");
 	}
-	
+
 	public void atualizar(long id, Pessoa pessoa) {
 
 	}
@@ -51,15 +50,23 @@ public class PessoaDao {
 	public void criarRelacionamentoUserPaiFilho(long idPai, long idFilho) {
 
 		this.session.run("MATCH (nicholas:User) WHERE nicholas.nome = 'Nicholas Eduardo'"
-				+ " MATCH (carlos:User) WHERE carlos.nome = 'Carlos Eduardo'"
-				+ " CREATE (nicholas)-[:TRES]->(carlos)");
+				+ " MATCH (carlos:User) WHERE carlos.nome = 'Carlos Eduardo'" + " CREATE (nicholas)-[:TRES]->(carlos)");
 
 	}
-	
+
 	public void relacionamentoPessoaPorID(long idPai, long idFilho) {
 		this.session.run("MATCH (filho:Pessoa) WHERE filho.nome = 'Andre Luis'"
-				+ " MATCH (pai:Pessoa) WHERE pai.nome = 'Antônio'"
-				+ " CREATE (filho)-[:Filho]->(pai)");
+				+ " MATCH (pai:Pessoa) WHERE pai.nome = 'Antônio'" + " CREATE (filho)-[:Filho]->(pai)");
+	}
+
+	public void apagar() {
+		this.session.run("MATCH (e:Pessoa) WHERE e.nome = 'Antônio' DELETE e");
+	}
+
+	public void apagarRelacionamento() {
+		this.session.run(
+				"MATCH (nicholas)-[rel:Filho]->(carlos) WHERE nicholas.nome = 'Andre Luis'"
+				+ " AND carlos.nome = 'Antônio' DELETE rel");
 	}
 
 	public static void main(String[] args) {
@@ -72,13 +79,19 @@ public class PessoaDao {
 
 		p.setNome("Antônio");
 
-		p.setProfissao("Estudante");
+		p.setSobrenome("Gomes");
 		
-		c.relacionamentoPessoaPorID(1, 1);
+		p.setIdade(38);
 
-//		 c.salvarPessoa(p);
+//		c.apagarRelacionamento();
+		
+//		c.apagar();
 
-//		c.criarRelacionamentoUserPaiFilho(10, 100);
+		// c.relacionamentoPessoaPorID(1, 1);
+
+		// c.salvarPessoa(p);
+
+		// c.criarRelacionamentoUserPaiFilho(10, 100);
 
 	}
 
