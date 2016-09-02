@@ -3,8 +3,8 @@ package br.edu.ifpb.monteiro.ads.view;
 /**
  * Main inicial para testes
  * 
- * @author André
- *
+ * @author André Luís
+ * E-mail: tr.andreluis@gmail.com 
  */
 
 public class Main {
