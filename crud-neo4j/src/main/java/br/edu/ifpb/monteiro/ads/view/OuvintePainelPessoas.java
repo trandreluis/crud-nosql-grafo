@@ -36,7 +36,6 @@ public class OuvintePainelPessoas implements ActionListener {
 	}
 
 	public void botaoCadastrar() {
-		JOptionPane.showMessageDialog(null, "Cadastrar!");
 		PainelCadastro painelCadastro = new PainelCadastro(painel.getFramePai());
 		painel.getFramePai().trocarPainel(painelCadastro);
 	}
@@ -50,7 +49,11 @@ public class OuvintePainelPessoas implements ActionListener {
 	}
 	
 	public void botaoVisualizarFamilia() {
-		JOptionPane.showMessageDialog(null, "Visualizar Família!");
+		
+		JOptionPane.showMessageDialog(null, "Visualizar FamÃ­lia!");
+		PainelRelacoes painelRelacoes = new PainelRelacoes(painel.getFramePai());
+		painel.getFramePai().trocarPainel(painelRelacoes);
+		
 	}
 	
 	public void botaoRelacionar() {

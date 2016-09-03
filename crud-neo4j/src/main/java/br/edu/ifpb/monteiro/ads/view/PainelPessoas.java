@@ -1,13 +1,11 @@
 package br.edu.ifpb.monteiro.ads.view;
 
-import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import br.edu.ifpb.monteiro.ads.model.Pessoa;
+import br.edu.ifpb.monteiro.ads.dao.PessoaDao;
 
 @SuppressWarnings("serial")
 public class PainelPessoas extends JPanel {
@@ -30,7 +28,7 @@ public class PainelPessoas extends JPanel {
 
 		OuvintePainelPessoas ouvinte = new OuvintePainelPessoas(this);
 
-		botaoVisualizarFamilia = new JButton("Visualizar Família");
+		botaoVisualizarFamilia = new JButton("Visualizar FamÃ­lia");
 		botaoVisualizarFamilia.setBounds(10, 376, 138, 34);
 		botaoVisualizarFamilia.addActionListener(ouvinte);
 		add(botaoVisualizarFamilia);
@@ -75,55 +73,9 @@ public class PainelPessoas extends JPanel {
 	 */
 	public void montarPreencherTabela() {
 
-		ArrayList<Pessoa> p = new ArrayList<Pessoa>();
-
-		Pessoa pessoa = new Pessoa();
-		pessoa.setIdade(19);
-		pessoa.setNome("Carlos");
-		pessoa.setSobrenome("Prestes");
-		Pessoa pessoa9 = new Pessoa();
-		pessoa9.setIdade(19);
-		pessoa9.setNome("Carlos");
-		pessoa9.setSobrenome("Prestes");
-		pessoa9.setCpf("108.678.779-44");
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-
-		Pessoa pessoa10 = new Pessoa();
-		pessoa10.setIdade(19);
-		pessoa10.setNome("Carlos");
-		pessoa10.setSobrenome("Prestes");
-		pessoa10.setCpf("234.786.99-56");
-		p.add(pessoa10);
-
-		ModeloTabelaPessoa model = new ModeloTabelaPessoa(p);
+		PessoaDao pd = new PessoaDao();
+		
+		ModeloTabelaPessoa model = new ModeloTabelaPessoa(pd.buscarTodos());
 		this.tabelaPessoas = new JTable(model);
 
 	}
