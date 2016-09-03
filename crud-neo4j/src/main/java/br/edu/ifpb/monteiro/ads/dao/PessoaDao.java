@@ -12,7 +12,7 @@ import br.edu.ifpb.monteiro.ads.model.Pessoa;
  * 
  * Classe de operacoes basicas para obejtos Pessoa
  * 
- * @author André
+ * @author AndrÃ©
  *
  */
 
@@ -32,11 +32,11 @@ public class PessoaDao {
 		session.close();
 	}
 
-	public void atualizar(long id, Pessoa pessoa) {
+	public void atualizar(long cpf, Pessoa pessoa) {
 
 	}
 
-	public Pessoa buscar(long id) {
+	public Pessoa buscar(long cpf) {
 		return null;
 	}
 
@@ -79,38 +79,17 @@ public class PessoaDao {
 
 	public void relacionamentoPessoaPorID(long idPai, long idFilho) {
 		this.session.run("MATCH (filho:Pessoa) WHERE filho.nome = 'Andre Luis'"
-				+ " MATCH (pai:Pessoa) WHERE pai.nome = 'Antônio'" + " CREATE (filho)-[:Filho]->(pai)");
+				+ " MATCH (pai:Pessoa) WHERE pai.nome = 'Antï¿½nio'" + " CREATE (filho)-[:Filho]->(pai)");
 	}
 
-	public void apagar() {
-		this.session.run("MATCH (e:Pessoa) WHERE e.nome = 'Antônio' DELETE e");
+	public void apagar(String cpf) {
+		this.session.run("MATCH (p:Pessoa) WHERE p.cpf = '"+ cpf +"' DELETE p");
+		session.close();
 	}
 
 	public void apagarRelacionamento() {
 		this.session.run("MATCH (nicholas)-[rel:Filho]->(carlos) WHERE nicholas.nome = 'Andre Luis'"
-				+ " AND carlos.nome = 'Antônio' DELETE rel");
-	}
-
-	public static void main(String[] args) {
-
-		Pessoa p = new Pessoa();
-
-		p.setNome("Antônio");
-
-		p.setSobrenome("Gomes");
-
-		p.setIdade(38);
-
-		// c.apagarRelacionamento();
-
-		// c.apagar();
-
-		// c.relacionamentoPessoaPorID(1, 1);
-
-		// c.salvarPessoa(p);
-
-		// c.criarRelacionamentoUserPaiFilho(10, 100);
-
+				+ " AND carlos.nome = 'Antï¿½nio' DELETE rel");
 	}
 
 }
