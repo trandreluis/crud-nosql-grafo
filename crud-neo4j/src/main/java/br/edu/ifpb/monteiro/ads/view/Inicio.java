@@ -13,6 +13,7 @@ public class Inicio extends JFrame {
 		this.setTitle("Cadastro de Familiares");
 		this.setSize(680, 460);
 		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		painelAtual = new PainelPessoas(this);
 		add(painelAtual);
