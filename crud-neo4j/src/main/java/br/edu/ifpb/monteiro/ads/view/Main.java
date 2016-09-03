@@ -36,7 +36,6 @@ public class Main {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				Inicio a = new Inicio();
-				a.setLocationRelativeTo(null);
 				a.setVisible(true);
 			}
 		});
