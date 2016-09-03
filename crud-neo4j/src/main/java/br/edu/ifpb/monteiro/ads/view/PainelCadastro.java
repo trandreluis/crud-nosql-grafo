@@ -1,13 +1,14 @@
 package br.edu.ifpb.monteiro.ads.view;
 
-import java.util.ArrayList;
+import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import br.edu.ifpb.monteiro.ads.model.Pessoa;
+import javax.swing.text.MaskFormatter;
 
 @SuppressWarnings("serial")
 public class PainelCadastro extends JPanel {
@@ -24,7 +25,7 @@ public class PainelCadastro extends JPanel {
 	private JTextField fieldNome;
 	private JTextField fieldSobrenome;
 	private JTextField fieldIdade;
-	private JTextField fieldCPF;
+	private JFormattedTextField fieldCPF;
 
 	public PainelCadastro(Inicio framePai) {
 
@@ -80,82 +81,18 @@ public class PainelCadastro extends JPanel {
 		add(fieldIdade);
 		fieldIdade.setColumns(10);
 
-		fieldCPF = new JTextField();
+		try {
+			fieldCPF = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "Preencha de acordo com o formato ###.###.###-##", "Erro",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
 		fieldCPF.setBounds(215, 229, 142, 27);
 		add(fieldCPF);
 		fieldCPF.setColumns(10);
 
-		/**
-		 * incio do teste
-		 */
-		montarPreencherTabela();
-		/**
-		 * fim do teste
-		 */
-
 	}
-
-	/**
-	 * inicio do teste
-	 */
-	public void montarPreencherTabela() {
-
-		ArrayList<Pessoa> p = new ArrayList<Pessoa>();
-
-		Pessoa pessoa = new Pessoa();
-		pessoa.setIdade(19);
-		pessoa.setNome("Carlos");
-		pessoa.setSobrenome("Prestes");
-		Pessoa pessoa9 = new Pessoa();
-		pessoa9.setIdade(19);
-		pessoa9.setNome("Carlos");
-		pessoa9.setSobrenome("Prestes");
-		pessoa9.setCpf("108.678.779-44");
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-		p.add(pessoa9);
-
-		Pessoa pessoa10 = new Pessoa();
-		pessoa10.setIdade(19);
-		pessoa10.setNome("Carlos");
-		pessoa10.setSobrenome("Prestes");
-		pessoa10.setCpf("234.786.99-56");
-		p.add(pessoa10);
-
-		@SuppressWarnings("unused")
-		ModeloTabelaPessoa model = new ModeloTabelaPessoa(p);
-
-	}
-
-	/**
-	 * fim do teste
-	 */
 
 	public JButton getBotaoCadastro() {
 		return this.botaoCadastrar;
@@ -173,7 +110,7 @@ public class PainelCadastro extends JPanel {
 		return fieldIdade;
 	}
 
-	public JTextField getFieldCPF() {
+	public JFormattedTextField getFieldCPF() {
 		return fieldCPF;
 	}
 
