@@ -46,13 +46,14 @@ public class ConnectionNeo4J {
 		Driver driver = GraphDatabase.driver("bolt://localhost", AuthTokens.basic("neo4j", "senhacrudbd2"));
 		Session session = driver.session();
 
-		session.run("CREATE (a:Person {name:'ZÉ', title:'King'})");
+//		session.run("CREATE (a:Person {name:'ZÉ', title:'King'})");
 
 		StatementResult result = session
 				.run("MATCH (a:Person) WHERE a.name = 'ZÉ' RETURN a.name AS name, a.title AS title");
 
 		while (result.hasNext()) {
 			Record record = result.next();
+			System.out.println();
 			System.out.println(record.get("title").asString() + " " + record.get("name").asString());
 		}
 
