@@ -2,7 +2,9 @@ package br.edu.ifpb.monteiro.ads.dao;
 
 import java.util.ArrayList;
 
+import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.StatementResult;
 
 import br.edu.ifpb.monteiro.ads.model.Pessoa;
 
@@ -23,9 +25,11 @@ public class PessoaDao {
 		this.session = neo4j.getSession();
 	}
 
-	public void salvar(Pessoa dado) {
-		this.session.run("CREATE (a:Pessoa {name: '" + dado.getNome() + "', nome:'" + dado.getNome() + "', sobrenome:'"
-				+ dado.getSobrenome() + "', cpf:'" + dado.getCpf() + "', idade:'" + dado.getIdade() +"'})");
+	public void salvar(Pessoa pessoa) {
+		session.run("CREATE (a:Pessoa {name: '" + pessoa.getNome() + "', nome:'" + pessoa.getNome() + "', sobrenome:'"
+				+ pessoa.getSobrenome() + "', cpf:'" + pessoa.getCpf() + "', idade:'" + pessoa.getIdade() +"'})");
+		
+		session.close();
 	}
 
 	public void atualizar(long id, Pessoa pessoa) {
@@ -37,7 +41,29 @@ public class PessoaDao {
 	}
 
 	public ArrayList<Pessoa> buscarTodos() {
-		return null;
+		
+		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+		
+		StatementResult resultado = session.run("MATCH (a:Pessoa) RETURN a.nome AS nome, a.sobrenome AS sobrenome, a.cpf AS cpf, a.idade AS idade");
+		
+		while(resultado.hasNext()) {
+			
+			Record pessoaAtual = resultado.next();
+			
+			Pessoa pessoaTemporaria = new Pessoa();
+			pessoaTemporaria.setNome(pessoaAtual.get("nome").asString());
+			pessoaTemporaria.setSobrenome(pessoaAtual.get("sobrenome").asString());
+			pessoaTemporaria.setCpf(pessoaAtual.get("cpf").asString());
+			pessoaTemporaria.setIdade(Integer.parseInt(pessoaAtual.get("idade").asString()));
+			
+			pessoas.add(pessoaTemporaria);
+			
+		}
+
+		session.close();
+
+		return pessoas;
+		
 	}
 
 	public boolean verificarExistencia(Pessoa pessoa) {
