@@ -1,1 +1,6 @@
+# Pasta de build do projeto
 /target/
+
+
+# Arquivos do eclipse
+.settings/
