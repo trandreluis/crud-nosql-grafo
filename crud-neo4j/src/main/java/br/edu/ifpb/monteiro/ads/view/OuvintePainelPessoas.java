@@ -5,18 +5,24 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import br.edu.ifpb.monteiro.ads.dao.PessoaDao;
+import br.edu.ifpb.monteiro.ads.validacao.ValidacaoPainelPessoas;
+
 public class OuvintePainelPessoas implements ActionListener {
 
 	private PainelPessoas painel;
+	private ValidacaoPainelPessoas validacao;
+	private PessoaDao dao = new PessoaDao();
 	
 	public OuvintePainelPessoas(PainelPessoas painel) {
 		this.painel = painel;
+		this.validacao = new ValidacaoPainelPessoas(this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == painel.getBotaovisualizarFamilia()) {
-			botaoVisualizarFamilia();
+			botaoVisualizarRelacoes();
 		}
 		else if(e.getSource() == painel.getBotaoRelacionar()) {
 			botaoRelacionar();
@@ -41,23 +47,61 @@ public class OuvintePainelPessoas implements ActionListener {
 	}
 	
 	public void botaoEditar() {
-		JOptionPane.showMessageDialog(null, "Editar!");
+		if(validacao.validarEdicao()) {
+			JOptionPane.showMessageDialog(null, "Botao editar validado!");			
+		}
+		
+		else {
+			JOptionPane.showMessageDialog(null, "Por favor, selecione uma Pessoa!");
+		}
 	}
 	
 	public void botaoRemover() {
-		JOptionPane.showMessageDialog(null, "Remover!");
+		if(validacao.validarRemocao()) {
+			
+			int linha = painel.getTabelaPessoas().getSelectedRow();
+			String cpf = (String) painel.getTabelaPessoas().getValueAt(linha, 2);
+			
+			dao.apagar(cpf);
+			
+			JOptionPane.showMessageDialog(null, "Pessoa Removida com sucesso!");
+			
+			PainelPessoas painelPessoas = new PainelPessoas(painel.getFramePai());
+			painel.getFramePai().trocarPainel(painelPessoas);
+			
+		}
+		
+		else {
+			JOptionPane.showMessageDialog(null, "Por favor, selecione uma Pessoa!");
+		}
 	}
 	
-	public void botaoVisualizarFamilia() {
+	public void botaoVisualizarRelacoes() {
 		
-		JOptionPane.showMessageDialog(null, "Visualizar Família!");
-		PainelRelacoes painelRelacoes = new PainelRelacoes(painel.getFramePai());
-		painel.getFramePai().trocarPainel(painelRelacoes);
+		if(validacao.validarVizualizacaoRelacionamento()) {
+			int linha = painel.getTabelaPessoas().getSelectedRow();
+			String nome = (String) painel.getTabelaPessoas().getValueAt(linha, 0);
+			String sobrenome = (String) painel.getTabelaPessoas().getValueAt(linha, 1);
+			String nomeCompleto = nome+" "+sobrenome;
+			
+			PainelRelacoes painelRelacoes = new PainelRelacoes(painel.getFramePai(), nomeCompleto);
+			painel.getFramePai().trocarPainel(painelRelacoes);			
+		}
+		
+		else {
+			JOptionPane.showMessageDialog(null, "Por favor, selecione uma Pessoa!");
+		}
 		
 	}
 	
 	public void botaoRelacionar() {
-		JOptionPane.showMessageDialog(null, "Relacionar!");
+		if(validacao.validacaoRelacionamento()) {
+			JOptionPane.showMessageDialog(null, "Botao relacionar validado!");
+		}
+		
+		else {
+			JOptionPane.showMessageDialog(null, "Por favor, selecione uma Pessoa!");
+		}
 	}
 	
 	public PainelPessoas getPainel() {
