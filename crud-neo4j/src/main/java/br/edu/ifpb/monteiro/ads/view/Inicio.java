@@ -10,8 +10,9 @@ public class Inicio extends JFrame {
 	
 	public Inicio() {
 
-		this.setTitle("Cadastro de Famíliares");
+		this.setTitle("Cadastro de Familiares");
 		this.setSize(680, 460);
+		this.setLocationRelativeTo(null);
 		
 		painelAtual = new PainelPessoas(this);
 		add(painelAtual);
