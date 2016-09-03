@@ -1,7 +1,5 @@
 package br.edu.ifpb.monteiro.ads.validacao;
 
-import javax.swing.JOptionPane;
-
 import br.edu.ifpb.monteiro.ads.view.OuvintePainelPessoas;
 import br.edu.ifpb.monteiro.ads.view.PainelPessoas;
 
@@ -18,13 +16,13 @@ public class ValidacaoPainelPessoas {
 	public boolean validacaoRelacionamento() {
 
 		return validarSelecaoNaTabela();
-		
+
 	}
 
 	public boolean validarVizualizacaoRelacionamento() {
 
 		return validarSelecaoNaTabela();
-		
+
 	}
 
 	public void validarCadastro() {
@@ -34,17 +32,17 @@ public class ValidacaoPainelPessoas {
 	public boolean validarEdicao() {
 
 		return validarSelecaoNaTabela();
-		
+
 	}
 
 	public boolean validarRemocao() {
 
 		return validarSelecaoNaTabela();
-		
+
 	}
 
 	private boolean validarSelecaoNaTabela() {
-		
+
 		int linha = painel.getTabelaPessoas().getSelectedRow();
 
 		if (linha == -1) {
@@ -52,7 +50,7 @@ public class ValidacaoPainelPessoas {
 		} else {
 			return true;
 		}
-		
+
 	}
-	
+
 }
