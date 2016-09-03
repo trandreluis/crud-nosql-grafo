@@ -16,7 +16,7 @@ public class ConnectionNeo4J {
 		criarDriver();
 		criarSession();
 	}
-
+	
 	public void criarDriver() {
 
 		try {
