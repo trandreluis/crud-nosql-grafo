@@ -1,24 +1,29 @@
 package br.edu.ifpb.monteiro.ads.view;
 
 import javax.swing.JPanel;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")
-public class PainelRelacoes extends JPanel {
+public class PainelRelacionar extends JPanel {
 
 	private Inicio framePai;
 	private JButton botaoVoltar;
 	private JLabel labelPessoa;
 	private JLabel labelNomePessoa;
+	private JComboBox<String> comboBox;	
 	
-	public PainelRelacoes(Inicio framePai, String pessoa) {
+	public PainelRelacionar(Inicio framePai, String pessoa) {
 
 		this.framePai = framePai;
 
 		this.setBounds(0, 0, 664, 421);
 
-		OuvintePainelRelacoes ouvinte = new OuvintePainelRelacoes(this);
+		OuvintePainelRelacionar ouvinte = new OuvintePainelRelacionar(this);
 		setLayout(null);
 		
 		labelPessoa = new JLabel("Pessoa:");
@@ -29,13 +34,31 @@ public class PainelRelacoes extends JPanel {
 		labelNomePessoa.setBounds(66, 11, 275, 21);
 		add(labelNomePessoa);
 		
-		botaoVoltar = new JButton("Voltar");
+		botaoVoltar = new JButton("Cancelar");
 		botaoVoltar.setBounds(565, 376, 89, 34);
 		botaoVoltar.addActionListener(ouvinte);
 		add(botaoVoltar);
+		
+		comboBox = new JComboBox<String>();
+				
+		preecherComboBox();
+		
+		add(comboBox);
+		
+	}
+	
+	public void preecherComboBox() {
+		comboBox.setBounds(10, 57, 121, 26);
+		comboBox.addItem("Pai");
+		comboBox.addItem("Marido");
+		comboBox.addItem("Mãe");
+		comboBox.addItem("Esposa");
+		comboBox.addItem("Filho");
+		comboBox.addItem("Irmão");
+		comboBox.addItem("Namorada(o)");
 
 	}
-
+	
 	public JButton getBotaoVoltar() {
 		return botaoVoltar;
 	}

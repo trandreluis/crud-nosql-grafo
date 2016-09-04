@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 import br.edu.ifpb.monteiro.ads.dao.PessoaDao;
 import br.edu.ifpb.monteiro.ads.validacao.ValidacaoPainelRelacoes;
 
-public class OuvintePainelRelacoes implements ActionListener {
+public class OuvintePainelRelacionar implements ActionListener {
 
-	private PainelRelacoes painel;
+	private PainelRelacionar painel;
 	private ValidacaoPainelRelacoes validador;
 	private PessoaDao dao = new PessoaDao();
 
-	public OuvintePainelRelacoes(PainelRelacoes painelRelacoes) {
+	public OuvintePainelRelacionar(PainelRelacionar painelRelacoes) {
 		this.painel = painelRelacoes;
 	}
 
@@ -29,7 +29,7 @@ public class OuvintePainelRelacoes implements ActionListener {
 		painelPessoas.getFramePai().trocarPainel(painelPessoas);
 	}
 	
-	public PainelRelacoes getPainel() {
+	public PainelRelacionar getPainel() {
 		return this.painel;
 	}
 

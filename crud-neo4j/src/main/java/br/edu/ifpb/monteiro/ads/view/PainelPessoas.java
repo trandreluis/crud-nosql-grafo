@@ -13,7 +13,7 @@ public class PainelPessoas extends JPanel {
 	private JButton botaoCadastrar;
 	private JButton botaoEditar;
 	private JButton botaoRemover;
-	private JButton botaoVisualizarFamilia;
+	private JButton botaoVisualizarRelacoes;
 	private JButton botaoRelacionar;
 	private Inicio framePai;
 
@@ -28,10 +28,10 @@ public class PainelPessoas extends JPanel {
 
 		OuvintePainelPessoas ouvinte = new OuvintePainelPessoas(this);
 
-		botaoVisualizarFamilia = new JButton("Visualizar FamÃ­lia");
-		botaoVisualizarFamilia.setBounds(10, 376, 138, 34);
-		botaoVisualizarFamilia.addActionListener(ouvinte);
-		add(botaoVisualizarFamilia);
+		botaoVisualizarRelacoes = new JButton("Visualizar Relações");
+		botaoVisualizarRelacoes.setBounds(10, 376, 138, 34);
+		botaoVisualizarRelacoes.addActionListener(ouvinte);
+		add(botaoVisualizarRelacoes);
 
 		botaoCadastrar = new JButton("Cadastrar");
 		botaoCadastrar.setBounds(367, 376, 89, 34);
@@ -97,11 +97,15 @@ public class PainelPessoas extends JPanel {
 	}
 
 	public JButton getBotaovisualizarFamilia() {
-		return this.botaoVisualizarFamilia;
+		return this.botaoVisualizarRelacoes;
 	}
 
 	public JButton getBotaoRelacionar() {
 		return this.botaoRelacionar;
+	}
+	
+	public JTable getTabelaPessoas() {
+		return this.tabelaPessoas;
 	}
 
 	public Inicio getFramePai() {
