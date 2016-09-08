@@ -70,10 +70,12 @@ public class PessoaDao {
 		return false;
 	}
 
-	public void criarRelacionamentoUserPaiFilho(long idPai, long idFilho) {
+	public void criarRelacionamento(String cpfPai, String cpfFilho, String tipoRelacao) {
 
-		this.session.run("MATCH (nicholas:User) WHERE nicholas.nome = 'Nicholas Eduardo'"
-				+ " MATCH (carlos:User) WHERE carlos.nome = 'Carlos Eduardo'" + " CREATE (nicholas)-[:TRES]->(carlos)");
+		this.session.run("MATCH (p1:Pessoa) WHERE p1.cpf = '"+cpfFilho+"'"
+				+ " MATCH (p2:Pessoa) WHERE p2.cpf = '"+cpfPai+"'"
+				+ " CREATE (p1)-[:"+tipoRelacao
+				+ "]->(p2)");
 
 	}
 
@@ -88,8 +90,8 @@ public class PessoaDao {
 	}
 
 	public void apagarRelacionamento() {
-		this.session.run("MATCH (nicholas)-[rel:Filho]->(carlos) WHERE nicholas.nome = 'Andre Luis'"
-				+ " AND carlos.nome = 'Ant�nio' DELETE rel");
+		this.session.run("MATCH (filho)-[rel:FILHO]->(pai) WHERE filho.cpf = '111.119.090-90'"
+				+ " AND pai.cpf = '108.942.734-42' DELETE rel");
 	}
 
 }
