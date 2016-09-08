@@ -1,8 +1,8 @@
 package br.edu.ifpb.monteiro.ads.model;
 
-public class Parente extends Pessoa {
+public class PessoaRelacionada extends Pessoa {
 
-	String tipoRelacao;
+	private String tipoRelacao;
 
 	public String getTipoRelacao() {
 		return tipoRelacao;
