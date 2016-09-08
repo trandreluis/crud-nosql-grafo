@@ -47,6 +47,7 @@ public class OuvintePainelPessoas implements ActionListener {
 	}
 	
 	public void botaoEditar() {
+		
 		if(validacao.validarEdicao()) {
 			JOptionPane.showMessageDialog(null, "Botao editar validado!");			
 		}
@@ -54,6 +55,7 @@ public class OuvintePainelPessoas implements ActionListener {
 		else {
 			JOptionPane.showMessageDialog(null, "Por favor, selecione uma Pessoa!");
 		}
+		
 	}
 	
 	public void botaoRemover() {
@@ -96,7 +98,13 @@ public class OuvintePainelPessoas implements ActionListener {
 	
 	public void botaoRelacionar() {
 		if(validacao.validacaoRelacionamento()) {
-			JOptionPane.showMessageDialog(null, "Botao relacionar validado!");
+			int linha = painel.getTabelaPessoas().getSelectedRow();
+			String nome = (String) painel.getTabelaPessoas().getValueAt(linha, 0);
+			String sobrenome = (String) painel.getTabelaPessoas().getValueAt(linha, 1);
+			String nomeCompleto = nome+" "+sobrenome;
+			String cpf = (String) painel.getTabelaPessoas().getValueAt(linha, 2);
+			PainelRelacionar painelRelacoes = new PainelRelacionar(painel.getFramePai(), nomeCompleto, cpf);
+			painel.getFramePai().trocarPainel(painelRelacoes);
 		}
 		
 		else {
