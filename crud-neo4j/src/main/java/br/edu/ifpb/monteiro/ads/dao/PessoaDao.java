@@ -7,6 +7,7 @@ import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
 
 import br.edu.ifpb.monteiro.ads.model.Pessoa;
+import br.edu.ifpb.monteiro.ads.model.PessoaRelacionada;
 
 /**
  * 
@@ -63,6 +64,43 @@ public class PessoaDao {
 		session.close();
 
 		return pessoas;
+		
+	}
+	
+	public ArrayList<PessoaRelacionada> buscarIrmaos(String cpfPrincipal) {
+		
+		ArrayList<PessoaRelacionada> relacionados = new ArrayList<PessoaRelacionada>();
+		
+		StatementResult resultado  = session.run("MATCH p=(pe:Pessoa)-[r:IRMAO]-() WHERE pe.cpf='"+cpfPrincipal
+				+ "' RETURN pe");
+		
+		while(resultado.hasNext()) {
+			
+			Record pessoaRelacionadaAtual = resultado.next();
+			
+			PessoaRelacionada pessoaTemporaria = new PessoaRelacionada();
+			
+			pessoaTemporaria.setNome(pessoaRelacionadaAtual.get("nome").asString());
+			pessoaTemporaria.setSobrenome(pessoaRelacionadaAtual.get("sobrenome").asString());
+			pessoaTemporaria.setCpf(pessoaRelacionadaAtual.get("cpf").asString());
+			pessoaTemporaria.setIdade(Integer.parseInt(pessoaRelacionadaAtual.get("idade").asString()));
+			pessoaTemporaria.setTipoRelacao("IRMAO");
+			
+			relacionados.add(pessoaTemporaria);
+			
+		}
+		
+		session.close();
+
+		return relacionados;
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		PessoaDao pd = new PessoaDao();
+		
+		pd.buscarIrmaos("108.942.734-42");
 		
 	}
 
