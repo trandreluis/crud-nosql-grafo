@@ -4,3 +4,5 @@
 
 # Arquivos do eclipse
 .settings/
+.classpath
+.project
