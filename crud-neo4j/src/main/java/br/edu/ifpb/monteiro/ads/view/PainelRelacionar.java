@@ -67,7 +67,7 @@ public class PainelRelacionar extends JPanel {
 		
 		add(comboBoxRelacoes);
 		
-		JLabel lblTipoDeRelao = new JLabel("Tipo de rela\u00E7\u00E3o:");
+		JLabel lblTipoDeRelao = new JLabel("Tipo de relacao:");
 		lblTipoDeRelao.setBounds(10, 44, 102, 16);
 		add(lblTipoDeRelao);
 		
@@ -81,7 +81,7 @@ public class PainelRelacionar extends JPanel {
 		comboBoxRelacoes.addItem("ESPOSA");
 		comboBoxRelacoes.addItem("FILHO");
 		comboBoxRelacoes.addItem("IRMAO");
-		comboBoxRelacoes.addItem("NAMORADA(O)");
+		comboBoxRelacoes.addItem("NAMORAD");
 
 	}
 	
