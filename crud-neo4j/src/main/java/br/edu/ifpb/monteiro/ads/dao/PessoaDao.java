@@ -1,15 +1,14 @@
 package br.edu.ifpb.monteiro.ads.dao;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
 import org.neo4j.driver.v1.Transaction;
-import org.neo4j.driver.v1.Value;
 import org.neo4j.driver.v1.exceptions.ClientException;
+
 import br.edu.ifpb.monteiro.ads.model.Pessoa;
-import br.edu.ifpb.monteiro.ads.model.PessoaRelacionada;
 
 /**
  * 
@@ -40,14 +39,14 @@ public class PessoaDao {
 		} finally {
 			try {
 				transacao.close();
-			} catch(ClientException excep) {
+			} catch (ClientException excep) {
 				transacao.failure();
 				transacao.close();
 			}
 		}
 
 		session.close();
-		
+
 	}
 
 	public ArrayList<Pessoa> buscarTodos() {
@@ -55,7 +54,8 @@ public class PessoaDao {
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
 
 		StatementResult resultado = session.run(
-				"MATCH (a:Pessoa) RETURN a.nome AS nome, a.sobrenome AS sobrenome, a.cpf AS cpf, a.idade AS idade");
+				"MATCH (a:Pessoa) RETURN a.nome AS nome, a.sobrenome AS sobrenome,"
+				+ "a.cpf AS cpf, a.idade AS idade");
 
 		while (resultado.hasNext()) {
 
@@ -77,53 +77,7 @@ public class PessoaDao {
 
 	}
 
-	public ArrayList<PessoaRelacionada> buscarIrmaos(String cpfPrincipal) {
-
-		ArrayList<PessoaRelacionada> relacionados = new ArrayList<PessoaRelacionada>();
-
-		StatementResult resultado = session
-				.run("MATCH p=(pe:Pessoa)-[r:IRMAO]->() WHERE pe.cpf='" + cpfPrincipal + "' RETURN r");
-
-		while (resultado.hasNext()) {
-
-			Record pessoaRelacionadaAtual = resultado.next();
-
-			System.out.println(pessoaRelacionadaAtual.size());
-			List<Value> valores = pessoaRelacionadaAtual.values();
-			System.out.println(valores.getClass());
-			System.out.println(valores.get(0));
-
-			PessoaRelacionada pessoaTemporaria = new PessoaRelacionada();
-
-			// pessoaTemporaria.setNome(pessoaRelacionadaAtual.get("nome").asString());
-			// pessoaTemporaria.setSobrenome(pessoaRelacionadaAtual.get("sobrenome").asString());
-			// pessoaTemporaria.setCpf(pessoaRelacionadaAtual.get("cpf").asString());
-			// pessoaTemporaria.setIdade(Integer.parseInt(pessoaRelacionadaAtual.get("idade").asString()));
-			// pessoaTemporaria.setTipoRelacao("IRMAO");
-
-			relacionados.add(pessoaTemporaria);
-
-		}
-
-		session.close();
-
-		return relacionados;
-
-	}
-
-	public static void main(String[] args) {
-
-//		PessoaDao pd = new PessoaDao();
-//
-//		ArrayList<PessoaRelacionada> pr = pd.buscarIrmaos("108.942.734-42");
-//
-		// for(PessoaRelacionada prt : pr) {
-		// System.out.println(prt.toString());
-//		 }
-
-	}
-
-	public boolean verificarExistencia(Pessoa pessoa) {
+	public boolean verificarExistencia(String cpf) {
 		return false;
 	}
 
@@ -133,22 +87,52 @@ public class PessoaDao {
 
 		try {
 			transacao.run(
-					"MATCH (p1:Pessoa) WHERE p1.cpf = '" + cpfNoSecundario + "'" + " MATCH (p2:Pessoa) WHERE p2.cpf = '"
+					"MATCH (p1:Pessoa) WHERE p1.cpf = '" + cpfNoSecundario + "'" 
+							+ " MATCH (p2:Pessoa) WHERE p2.cpf = '"
 							+ cpfNoPrincipal + "'" + " CREATE (p1)-[:" + tipoRelacao + "]->(p2)");
 			transacao.success();
 		} finally {
 			try {
 				transacao.close();
-			} catch(ClientException excep) {
+			} catch (ClientException excep) {
 				transacao.failure();
 				transacao.close();
 			}
 		}
 
 		session.close();
-		
+
 	}
 
+	public void criarRelacionamentoBidirecional(String cpfNo1, String cpfNo2, String tipoRelacao) {
+
+		Transaction transacao = session.beginTransaction();
+
+		try {
+			transacao.run(
+					"MATCH (p1:Pessoa) WHERE p1.cpf = '" + cpfNo2 + "'" + " MATCH (p2:Pessoa) WHERE p2.cpf = '"
+							+ cpfNo1 + "'" + " CREATE (p1)-[:" + tipoRelacao + "]-(p2)");
+			transacao.success();
+		} finally {
+			try {
+				transacao.close();
+			} catch (ClientException excep) {
+				transacao.failure();
+				transacao.close();
+			}
+		}
+
+		session.close();
+
+	}
+	
+	public static void main(String[] args) {
+		
+		PessoaDao pd = new PessoaDao();
+		pd.apagarRelacionamento();
+		
+	}
+	
 	public void apagar(String cpf) {
 
 		Transaction transacao = session.beginTransaction();
@@ -159,19 +143,42 @@ public class PessoaDao {
 		} finally {
 			try {
 				transacao.close();
-			} catch(ClientException excep) {
+			} catch (ClientException excep) {
 				transacao.failure();
 				transacao.close();
 			}
 		}
 
 		session.close();
-		
+
+	}
+
+	public void atualizar(Pessoa pessoa) {
+
+		Transaction transacao = session.beginTransaction();
+
+		try {
+			transacao.run("MATCH (p:Pessoa) WHERE p.cpf = '" + pessoa.getCpf() + "' SET p.nome = '"
+					+ pessoa.getNome()
+					+ "', p.name = '" + pessoa.getNome() + "', p.sobrenome = '" + pessoa.getSobrenome()
+					+ "', p.idade = '" + pessoa.getIdade() + "' RETURN p");
+			transacao.success();
+		} finally {
+			try {
+				transacao.close();
+			} catch (ClientException excep) {
+				transacao.failure();
+				transacao.close();
+			}
+		}
+
+		session.close();
+
 	}
 
 	public void apagarRelacionamento() {
-		this.session.run("MATCH (filho)-[rel:FILHO]->(pai) WHERE filho.cpf = '111.119.090-90'"
-				+ " AND pai.cpf = '108.942.734-42' DELETE rel");
+		this.session.run("MATCH (filho)-[rel:FILHO]->(pai) WHERE filho.cpf = '888.777.777-77'"
+				+ " AND pai.cpf = '456.789.054-56' DELETE rel");
 	}
 
 }
