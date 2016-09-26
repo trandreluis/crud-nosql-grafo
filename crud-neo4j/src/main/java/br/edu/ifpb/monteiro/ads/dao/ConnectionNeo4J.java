@@ -22,7 +22,7 @@ public class ConnectionNeo4J {
 		try {
 			this.driver = GraphDatabase.driver("bolt://localhost", AuthTokens.basic("neo4j", "senhacrudbd2"));
 		} catch (Exception e) {
-			System.out.println("Erro ao criar o driver.");
+			System.out.println("Erro ao criar ao estabelecer conexao.");
 		}
 
 	}
