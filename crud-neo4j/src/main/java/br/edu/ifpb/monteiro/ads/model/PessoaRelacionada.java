@@ -11,5 +11,10 @@ public class PessoaRelacionada extends Pessoa {
 	public void setTipoRelacao(String tipoRelacao) {
 		this.tipoRelacao = tipoRelacao;
 	}
-	
+
+	public String toString() {
+		return "NOME: " + this.nome + ", SOBRENOME: " + this.sobrenome + ", CPF: " + this.cpf + ", IDADE: " + this.idade
+				+ ", RELACAO: " + this.tipoRelacao;
+	}
+
 }
