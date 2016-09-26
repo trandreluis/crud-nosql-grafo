@@ -8,10 +8,10 @@ package br.edu.ifpb.monteiro.ads.model;
 
 public class Pessoa {
 
-	private String nome;
-	private String sobrenome;
-	private String cpf;
-	private int idade;
+	protected String nome;
+	protected String sobrenome;
+	protected String cpf;
+	protected int idade;
 	
 	public String getCpf() {
 		return cpf;
