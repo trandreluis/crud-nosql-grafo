@@ -13,7 +13,7 @@ import javax.swing.text.MaskFormatter;
 @SuppressWarnings("serial")
 public class PainelCadastro extends JPanel {
 
-	private JButton botaoCadastrar;
+	private JButton botaoSalvar;
 	private JButton botaoCancelar;
 
 	private Inicio framePai;
@@ -26,20 +26,44 @@ public class PainelCadastro extends JPanel {
 	private JTextField fieldSobrenome;
 	private JTextField fieldIdade;
 	private JFormattedTextField fieldCPF;
+	private OuvintePainelCadastro ouvinte;
+
+	public PainelCadastro(Inicio framePai, String nome, String sobrenome, String idade, String cpf) {
+
+		configurarJanela(framePai);
+		adicionarComponents();
+		
+		fieldNome.setText(nome);
+		fieldSobrenome.setText(sobrenome);
+		fieldIdade.setText(idade);
+		fieldCPF.setText(cpf);
+		fieldCPF.setEditable(false);
+
+	}
 
 	public PainelCadastro(Inicio framePai) {
 
-		this.framePai = framePai;
+		configurarJanela(framePai);
+		adicionarComponents();
 
+	}
+
+	public void configurarJanela(Inicio framePai) {
+		
+		this.framePai = framePai;
 		this.setBounds(0, 0, 664, 421);
 		this.setLayout(null);
 
-		OuvintePainelCadastro ouvinte = new OuvintePainelCadastro(this);
+	}
 
-		botaoCadastrar = new JButton("Cadastrar");
-		botaoCadastrar.setBounds(455, 376, 89, 34);
-		botaoCadastrar.addActionListener(ouvinte);
-		add(botaoCadastrar);
+	public void adicionarComponents() {
+
+		ouvinte = new OuvintePainelCadastro(this);
+
+		botaoSalvar = new JButton("Salvar");
+		botaoSalvar.setBounds(455, 376, 89, 34);
+		botaoSalvar.addActionListener(ouvinte);
+		add(botaoSalvar);
 
 		botaoCancelar = new JButton("Cancelar");
 		botaoCancelar.setBounds(565, 376, 89, 34);
@@ -94,8 +118,8 @@ public class PainelCadastro extends JPanel {
 
 	}
 
-	public JButton getBotaoCadastro() {
-		return this.botaoCadastrar;
+	public JButton getBotaoSalvar() {
+		return this.botaoSalvar;
 	}
 
 	public JTextField getFieldNome() {

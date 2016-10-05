@@ -21,8 +21,8 @@ public class OuvintePainelCadastro implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == painel.getBotaoCadastro()) {
-			botaoCadastrar();
+		if (e.getSource() == painel.getBotaoSalvar()) {
+			botaoSalvar();
 		}
 
 		else if (e.getSource() == painel.getBotaoCancelar()) {
@@ -31,7 +31,7 @@ public class OuvintePainelCadastro implements ActionListener {
 
 	}
 
-	public void botaoCadastrar() {
+	public void botaoSalvar() {
 
 		validador = new ValidacaoPainelCadastro(this);
 
@@ -44,7 +44,14 @@ public class OuvintePainelCadastro implements ActionListener {
 			pessoa.setIdade(Integer.parseInt(painel.getFieldIdade().getText()));
 			pessoa.setCpf(painel.getFieldCPF().getText());
 
-			dao.salvar(pessoa);
+			if(!painel.getFieldCPF().isEditable()) {
+				dao.atualizar(pessoa);
+			}
+			
+			else {
+				dao.salvar(pessoa);				
+			}
+			
 
 			JOptionPane.showMessageDialog(null, "Pessoa cadastrada com sucesso!");
 

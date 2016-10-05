@@ -49,7 +49,15 @@ public class OuvintePainelPessoas implements ActionListener {
 	public void botaoEditar() {
 		
 		if(validacao.validarEdicao()) {
-			JOptionPane.showMessageDialog(null, "Botao editar validado!");			
+			
+			int linha = painel.getTabelaPessoas().getSelectedRow();
+			String nome = (String) painel.getTabelaPessoas().getValueAt(linha, 0);
+			String sobrenome = (String) painel.getTabelaPessoas().getValueAt(linha, 1);
+			String idade = (String) ""+ painel.getTabelaPessoas().getValueAt(linha, 3);
+			String cpf = (String) painel.getTabelaPessoas().getValueAt(linha, 2);
+			
+			PainelCadastro painelCadastro = new PainelCadastro(painel.getFramePai(), nome, sobrenome, idade, cpf);
+			painel.getFramePai().trocarPainel(painelCadastro);	
 		}
 		
 		else {
@@ -83,10 +91,11 @@ public class OuvintePainelPessoas implements ActionListener {
 		if(validacao.validarVizualizacaoRelacionamento()) {
 			int linha = painel.getTabelaPessoas().getSelectedRow();
 			String nome = (String) painel.getTabelaPessoas().getValueAt(linha, 0);
+			String cpf = (String) painel.getTabelaPessoas().getValueAt(linha, 2);
 			String sobrenome = (String) painel.getTabelaPessoas().getValueAt(linha, 1);
 			String nomeCompleto = nome+" "+sobrenome;
 			
-			PainelRelacoes painelRelacoes = new PainelRelacoes(painel.getFramePai(), nomeCompleto);
+			PainelRelacoes painelRelacoes = new PainelRelacoes(painel.getFramePai(), nomeCompleto, cpf);
 			painel.getFramePai().trocarPainel(painelRelacoes);			
 		}
 		
